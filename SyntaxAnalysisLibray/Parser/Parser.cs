@@ -10,18 +10,18 @@ namespace SyntaxAnalysisLibray.Parser
 {
     public static class Parser
     {
-        /*private static List<Token> s_tokens;
+        private static List<Token> s_tokens;
         private static Token s_token;
         private static int s_tokensIterator;
         private static Stack<int> s_tokensIteratorStack;
 
-        public static IElement Parse(List<Token> tokens)
+        public static object Parse(List<Token> tokens)
         {
             PrepareToRead(tokens);
             var result = GetSymbol(NonTerminal.Root);
             if (result.Success)
             {
-                var element = (IElement)result.Value;
+                var element = result.Value;
                 return element;
             }
             else
@@ -43,25 +43,7 @@ namespace SyntaxAnalysisLibray.Parser
                     result = GetNonTerminal(nonTerminal);
                     break;
             }
-            switch (result.Success, symbol)
-            {
-                case (false, _):
-                    return result;
-                case (_, NonTerminal.Expression):
-                    return new Result(true, BuildExpression((List<IElement>)result.Value));
-                case (_, NonTerminal.Pattern):
-                    return new Result(true, BuildPattern((List<IElement>)result.Value));
-                case (_, NonTerminal.Root):
-                    return new Result(true, ((List<IElement>)result.Value)[0]);
-                case (_, Terminal.Number):
-                    return new Result(true, new Number(Convert.ToInt32(result.Value)));
-                case (_, Terminal.Symbol):
-                    return new Result(true, new Symbol((string)result.Value));
-                case (_, Terminal.Underscores):
-                    return new Result(true, new Symbol((string)result.Value));
-                case (_, _):
-                    return result;
-            }
+            return result;
         }
 
         private static Result GetTerminal(Terminal requestedSymbol)
@@ -78,12 +60,16 @@ namespace SyntaxAnalysisLibray.Parser
 
         private static Result GetNonTerminal(NonTerminal requestedSymbol)
         {
+            if (requestedSymbol == NonTerminal.CycleOperator)
+            {
+
+            }
             var productions = Grammar.Rules[requestedSymbol];
             foreach (var production in productions)
             {
                 SavePosition();
                 var productionMatches = true;
-                var elements = new List<IElement>();
+                var elements = new List<string>();
                 foreach (var symbol in production)
                 {
                     var result = GetSymbol(symbol);
@@ -91,17 +77,6 @@ namespace SyntaxAnalysisLibray.Parser
                     {
                         productionMatches = false;
                         break;
-                    }
-                    switch (result.Value)
-                    {
-                        case "":
-                            continue;
-                        case List<IElement> nonTerminal:
-                            elements.AddRange(nonTerminal);
-                            break;
-                        default:
-                            elements.Add((IElement)result.Value);
-                            break;
                     }
                 }
                 if (productionMatches)
@@ -111,33 +86,6 @@ namespace SyntaxAnalysisLibray.Parser
                 RestorePosition();
             }
             return new Result(false);
-        }
-
-        private static Expression BuildExpression(List<IElement> objectsList)
-        {
-            var head = ((Symbol)objectsList[0]).Value;
-            var operands = objectsList.GetRange(1, objectsList.Count - 1);
-            return new Expression(head, operands);
-        }
-
-        private static IPattern BuildPattern(List<IElement> objects)
-        {
-            var patternName = ((Symbol)objects[0]).Value;
-            var underscoresCount = ((Symbol)objects[1]).Value.Length;
-            var typeName = objects.Count == 2 ? "" : ((Symbol)objects[2]).Value;
-            switch (underscoresCount, typeName)
-            {
-                case (1, ""):
-                    return new ElementPattern(patternName);
-                case (1, "symbol"):
-                    return new ElementPattern(patternName);
-                case (1, "integer"):
-                    return new NumberPattern(patternName);
-                case (3, ""):
-                    return new NullableSequencePattern(patternName);
-                default:
-                    throw new StrangePatternFormException();
-            }
         }
 
         private static void PrepareToRead(List<Token> tokens)
@@ -162,6 +110,6 @@ namespace SyntaxAnalysisLibray.Parser
         {
             s_token = s_tokens[s_tokensIterator];
             s_tokensIterator++;
-        }*/
+        }
     }
 }

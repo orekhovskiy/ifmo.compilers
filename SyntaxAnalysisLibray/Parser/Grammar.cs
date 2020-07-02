@@ -23,7 +23,7 @@ namespace SyntaxAnalysisLibray.Parser
 
             Rules.Add(NonTerminal.VariableDeclaration, new List<List<object>>
             {
-                new List<object>{Terminal.Var, NonTerminal.Separator, NonTerminal.VariablesList}
+                new List<object>{Terminal.Var, NonTerminal.VariablesList}
             });
 
             Rules.Add(NonTerminal.VariablesList, new List<List<object>>
@@ -44,7 +44,7 @@ namespace SyntaxAnalysisLibray.Parser
 
             Rules.Add(NonTerminal.OperatorsContinuation, new List<List<object>>
             {
-                new List<object>{NonTerminal.Separator, NonTerminal.OperatorsList},
+                new List<object>{NonTerminal.OperatorsList},
                 new List<object>{}
             });
 
@@ -68,8 +68,8 @@ namespace SyntaxAnalysisLibray.Parser
             Rules.Add(NonTerminal.Subexpression, new List<List<object>>
             {
                 new List<object>{Terminal.LeftBracket, NonTerminal.Expression, Terminal.RightBracket},
-                new List<object>{NonTerminal.Operand},
-                new List<object>{NonTerminal.BinaryOperatorSubexpression}
+                new List<object>{NonTerminal.BinaryOperatorSubexpression},
+                new List<object>{NonTerminal.Operand}
             });
 
             Rules.Add(NonTerminal.BinaryOperatorSubexpression, new List<List<object>>
@@ -91,26 +91,26 @@ namespace SyntaxAnalysisLibray.Parser
 
             Rules.Add(NonTerminal.CycleOperator, new List<List<object>>
             {
-                new List<object>{Terminal.While, NonTerminal.Separator, NonTerminal.Expression, NonTerminal.Separator, Terminal.Do, NonTerminal.Separator, NonTerminal.Operator}
+                new List<object>{Terminal.While,NonTerminal.Expression, Terminal.Do, NonTerminal.Operator}
             });
 
             Rules.Add(NonTerminal.CompoundOperator, new List<List<object>>
             {
-                new List<object>{Terminal.Begin, NonTerminal.Separator, NonTerminal.OperatorsList, NonTerminal.Separator, Terminal.End}
+                new List<object>{Terminal.Begin, NonTerminal.OperatorsList, Terminal.End}
             });
 
-            Rules.Add(NonTerminal.Separator, new List<List<object>>
-            {
-                new List<object>{Terminal.Space, NonTerminal.NullableSeparator},
-                new List<object>{Terminal.Tab, NonTerminal.NullableSeparator},
-                new List<object>{Terminal.LineBreak, NonTerminal.NullableSeparator},
-            });
+            //Rules.Add(NonTerminal.Separator, new List<List<object>>
+            //{
+            //    new List<object>{Terminal.Space, NonTerminal.NullableSeparator},
+            //    new List<object>{Terminal.Tab, NonTerminal.NullableSeparator},
+            //    new List<object>{Terminal.LineBreak, NonTerminal.NullableSeparator},
+            //});
 
-            Rules.Add(NonTerminal.NullableSeparator, new List<List<object>>
-            {
-                new List<object>{NonTerminal.Separator},
-                new List<object>{ }
-            });
+            //Rules.Add(NonTerminal.NullableSeparator, new List<List<object>>
+            //{
+            //    new List<object>{NonTerminal.Separator},
+            //    new List<object>{ }
+            //});
         }
     }
 }

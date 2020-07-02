@@ -1,4 +1,5 @@
 ﻿using SyntaxAnalysisLibray.Lexer;
+using SyntaxAnalysisLibray.Parser;
 using System;
 
 namespace ifmo.compilers
@@ -9,8 +10,9 @@ namespace ifmo.compilers
         {
             var fileName = "pseudocode.txt";
             var code = IOManager.ReadFile(fileName);
-            var substr = code.Substring(110);
+            var splited = code.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
             var tocenizedCode = Lexer.Tokenize(code);
+            var parsedCode = Parser.Parse(tocenizedCode);
         }
     }
 }

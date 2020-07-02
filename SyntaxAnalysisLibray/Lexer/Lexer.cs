@@ -2,6 +2,8 @@
 using CommonsLibrary.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -14,13 +16,15 @@ namespace SyntaxAnalysisLibray.Lexer
             var tokens = new List<Token>();
             for (var i = 0; i < str.Length; i++)
             {
-                var substring = str.Substring(i);
+                var substring = str.Substring(i).Split((char[])null, StringSplitOptions.RemoveEmptyEntries)[0];
                 var result = GetToken(substring);
                 if (result.Success)
                 {
                     var token = (Token)result.Value;
                     tokens.Add(token);
+                    i += CompinsateEmptyEntries(str.Substring(i), token.Content);
                     i += token.Content.Length - 1;
+
                 }
                 else
                 {
@@ -30,7 +34,7 @@ namespace SyntaxAnalysisLibray.Lexer
             tokens.Add(new Token(TokenType.EOF, ""));
             return tokens;
         }
-
+        
         private static Result GetToken(string str)
         {
             foreach (var (tokenType, tokenDefinition) in Grammar.TokenDefinitions)
@@ -42,6 +46,24 @@ namespace SyntaxAnalysisLibray.Lexer
                 }
             }
             return new Result(false);
+        }
+
+        private static int CompinsateEmptyEntries(string str, string token)
+        {
+            var i = 0;
+            while(str[i] == ' ')
+            {
+                i++;
+            }
+            if (str.Length >= i + token.Length + 2)
+            {
+                var substr = str.Substring(i + token.Length, 2);
+                return substr == "\r\n" ? i + 2 : i;
+            }
+            else
+            {
+                return i;
+            }
         }
     }
 }
