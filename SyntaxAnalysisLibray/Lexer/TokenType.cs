@@ -9,9 +9,20 @@ namespace SyntaxAnalysisLibray.Lexer
         Comma,
         LeftBracket,
         RightBracket,
-        Underscores,
-        Number,
-        Symbol,
+        Const,
+        Ident,
+        Var,
+        EqualSign,
+        UnaryOperator,
+        BinaryOperator,
+        While,
+        Do,
+        Begin, 
+        End,
+        Dot,
+        Space,
+        Tab,
+        LineBreak,
         EOF
     }
 }

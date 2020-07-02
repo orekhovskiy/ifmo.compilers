@@ -7,10 +7,23 @@ namespace SyntaxAnalysisLibray.Parser
     public enum NonTerminal
     {
         Root,
-        Element,
-        Pattern,
+        VariableDeclaration,
+        ComputingDescription,
+        VariablesList,
+        OperatorsList,
+        Operator,
+        Assignment,
         Expression,
-        Operands,
+        Subexpression,
+        Operand,
+        ComplexOperator,
+        CycleOperator,
+        CompoundOperator,
+        Separator,
+        NullableSeparator,
+        VariablesContinuation,
+        OperatorsContinuation,
+        BinaryOperatorSubexpression,
         Continuation
     }
 }
