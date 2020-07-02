@@ -21,6 +21,18 @@ namespace SyntaxAnalysisLibray.Lexer
             s_rules.Add("Letter", $"(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)");
             s_rules.Add("Const", $"{s_rules["Digit"]}+");
             s_rules.Add("Ident", $"{s_rules["Letter"]}({s_rules["Letter"]}|{s_rules["Digit"]})*");
+            s_rules.Add("Var", $"Var");
+            s_rules.Add("EqualSign", $"=");
+            s_rules.Add("UnaryOperator", $"not|-");
+            s_rules.Add("BinaryOperator", $"-|+|*|/|<|>|==");
+            s_rules.Add("While", $"While");
+            s_rules.Add("Do", $"Do");
+            s_rules.Add("Begin", $"Begin");
+            s_rules.Add("End", $"End");
+            s_rules.Add("Dot", $".");
+            s_rules.Add("Space", $" ");
+            s_rules.Add("Tab", $"\t");
+            s_rules.Add("LineBreak", $"\n");
 
             // Соответствие между правилами и определениями токенов
             foreach (TokenType tokenType in Enum.GetValues(typeof(TokenType)))
