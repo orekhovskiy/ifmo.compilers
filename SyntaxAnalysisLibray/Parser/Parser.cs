@@ -60,7 +60,7 @@ namespace SyntaxAnalysisLibray.Parser
 
         private static Result GetNonTerminal(NonTerminal requestedSymbol)
         {
-            if (requestedSymbol == NonTerminal.CycleOperator)
+            if (requestedSymbol == NonTerminal.Subexpression)
             {
 
             }

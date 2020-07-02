@@ -68,8 +68,8 @@ namespace SyntaxAnalysisLibray.Parser
             Rules.Add(NonTerminal.Subexpression, new List<List<object>>
             {
                 new List<object>{Terminal.LeftBracket, NonTerminal.Expression, Terminal.RightBracket},
-                new List<object>{NonTerminal.BinaryOperatorSubexpression},
-                new List<object>{NonTerminal.Operand}
+                new List<object>{NonTerminal.Operand},
+                new List<object>{NonTerminal.BinaryOperatorSubexpression}
             });
 
             Rules.Add(NonTerminal.BinaryOperatorSubexpression, new List<List<object>>
