@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SyntaxAnalysisLibray.Lexer;
+using System;
 
 namespace ifmo.compilers
 {
@@ -6,7 +7,10 @@ namespace ifmo.compilers
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var fileName = "pseudocode.txt";
+            var code = IOManager.ReadFile(fileName);
+            var substr = code.Substring(110);
+            var tocenizedCode = Lexer.Tokenize(code);
         }
     }
 }

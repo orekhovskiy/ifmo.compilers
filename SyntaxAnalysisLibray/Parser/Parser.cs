@@ -10,7 +10,7 @@ namespace SyntaxAnalysisLibray.Parser
 {
     public static class Parser
     {
-        private static List<Token> s_tokens;
+        /*private static List<Token> s_tokens;
         private static Token s_token;
         private static int s_tokensIterator;
         private static Stack<int> s_tokensIteratorStack;
@@ -162,6 +162,6 @@ namespace SyntaxAnalysisLibray.Parser
         {
             s_token = s_tokens[s_tokensIterator];
             s_tokensIterator++;
-        }
+        }*/
     }
 }

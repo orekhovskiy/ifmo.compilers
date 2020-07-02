@@ -14,7 +14,8 @@ namespace SyntaxAnalysisLibray.Lexer
             var tokens = new List<Token>();
             for (var i = 0; i < str.Length; i++)
             {
-                var result = GetToken(str.Substring(i));
+                var substring = str.Substring(i);
+                var result = GetToken(substring);
                 if (result.Success)
                 {
                     var token = (Token)result.Value;

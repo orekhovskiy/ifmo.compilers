@@ -56,7 +56,7 @@ namespace SyntaxAnalysisLibray.Parser
 
             Rules.Add(NonTerminal.Assignment, new List<List<object>>
             {
-                new List<object>{Terminal.Ident,, Terminal.EqualSign, NonTerminal.Expression}
+                new List<object>{Terminal.Ident, Terminal.EqualSign, NonTerminal.Expression}
             });
 
             Rules.Add(NonTerminal.Expression, new List<List<object>>
