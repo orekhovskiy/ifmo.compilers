@@ -60,10 +60,6 @@ namespace SyntaxAnalysisLibray.Parser
 
         private static Result GetNonTerminal(NonTerminal requestedSymbol)
         {
-            if (requestedSymbol == NonTerminal.Subexpression)
-            {
-
-            }
             var productions = Grammar.Rules[requestedSymbol];
             foreach (var production in productions)
             {

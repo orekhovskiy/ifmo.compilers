@@ -11,8 +11,8 @@ namespace ifmo.compilers
             var fileName = "pseudocode.txt";
             var code = IOManager.ReadFile(fileName);
             var splited = code.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
-            var tocenizedCode = Lexer.Tokenize(code);
-            var parsedCode = Parser.Parse(tocenizedCode);
+            var tokenizedCode = Lexer.Tokenize(code);
+            var parsedCode = Parser.Parse(tokenizedCode);
         }
     }
 }
