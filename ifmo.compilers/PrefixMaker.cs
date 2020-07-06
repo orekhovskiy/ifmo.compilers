@@ -6,11 +6,11 @@ using CommonsLibrary.Exceptions;
 
 namespace ifmo.compilers
 {
-    public static class PostfixMaker
+    public static class PrefixMaker
     {
-        public static List<Token> MakePostfix(List<Token> tokens)
+        public static List<Token> MakePrefix(List<Token> tokens)
         {
-            var postfixTokens = new List<Token>();
+            var prefixTokens = new List<Token>();
             var expressionSubset = new List<Token>();
             foreach (var token in tokens)
             {
@@ -20,30 +20,30 @@ namespace ifmo.compilers
                 } 
                 else
                 {
-                    // If token is <EqualSign> postfix form doesn't required.
+                    // If token is <EqualSign> postfix form doesn't needed
                     // This separates expressions as well
                     if (token.Type == TokenType.EqualSign && expressionSubset.Count >= 1)
                     {
                         var preEqualToken = expressionSubset.ElementAt(expressionSubset.Count - 1);
                         expressionSubset.RemoveAt(expressionSubset.Count - 1);
-                        postfixTokens.AddRange(MakePostfixExpression(expressionSubset));
-                        postfixTokens.Add(preEqualToken);
+                        prefixTokens.AddRange(MakePrefixExpression(expressionSubset));
+                        prefixTokens.Add(preEqualToken);
                         expressionSubset = new List<Token>();
-                        postfixTokens.Add(token);
+                        prefixTokens.Add(token);
                     }
                     else
                     {
-                        postfixTokens.AddRange(MakePostfixExpression(expressionSubset));
+                        prefixTokens.AddRange(MakePrefixExpression(expressionSubset));
                         expressionSubset = new List<Token>();
-                        postfixTokens.Add(token);
+                        prefixTokens.Add(token);
                     }
                 }
             }
-            postfixTokens.AddRange(MakePostfixExpression(expressionSubset));
-            return postfixTokens;
+            prefixTokens.AddRange(MakePrefixExpression(expressionSubset));
+            return prefixTokens;
         }
 
-        private static List<Token> MakePostfixExpression(List<Token> tokens)
+        private static List<Token> MakePrefixExpression(List<Token> tokens)
         {
             // Just an <Operand>
             // ex: a
@@ -62,7 +62,7 @@ namespace ifmo.compilers
 
             // Expression is complex
             // ex: a + b
-            var postfixExpression = new List<Token>();
+            var prefixExpression = new List<Token>();
             var operationStack = new Stack<Token>();
             foreach (var token in tokens)
             {
@@ -70,7 +70,7 @@ namespace ifmo.compilers
                 {
                     case TokenType.Const:
                     case TokenType.Ident:
-                        postfixExpression.Add(token);
+                        prefixExpression.Add(token);
                         break;
                     case TokenType.LeftBracket:
                         operationStack.Push(token);
@@ -82,7 +82,7 @@ namespace ifmo.compilers
                         }
                         while (operationStack.Peek().Type != TokenType.LeftBracket)
                         {
-                            postfixExpression.Add(operationStack.Pop());
+                            prefixExpression.Add(operationStack.Pop());
                         }
                         operationStack.Pop();
                         break;
@@ -93,7 +93,7 @@ namespace ifmo.compilers
                         }
                         else  if (operationStack.Any() && GetOperationPriority(operationStack.Peek()) >= GetOperationPriority(token))
                         {
-                            postfixExpression.Add(operationStack.Pop());
+                            prefixExpression.Add(operationStack.Pop());
                             operationStack.Push(token);
                         }
                         else
@@ -105,9 +105,10 @@ namespace ifmo.compilers
             }
             while (operationStack.Any())
             {
-                postfixExpression.Add(operationStack.Pop());
+                prefixExpression.Add(operationStack.Pop());
             }
-            return postfixExpression;
+            prefixExpression.Reverse();
+            return prefixExpression;
         }
 
         private static bool IsExpressionPart(Token token)

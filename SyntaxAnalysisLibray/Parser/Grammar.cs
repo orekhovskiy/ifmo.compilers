@@ -68,13 +68,13 @@ namespace SyntaxAnalysisLibray.Parser
             Rules.Add(NonTerminal.Subexpression, new List<List<object>>
             {
                 new List<object>{Terminal.LeftBracket, NonTerminal.Expression, Terminal.RightBracket},
-                new List<object>{NonTerminal.Operand},
-                //new List<object>{NonTerminal.BinaryOperatorSubexpression}
+                new List<object>{NonTerminal.BinaryOperatorSubexpression},
+                new List<object>{NonTerminal.Operand}
             });
 
             Rules.Add(NonTerminal.BinaryOperatorSubexpression, new List<List<object>>
             {
-                new List<object>{NonTerminal.Subexpression, Terminal.BinaryOperator, NonTerminal.Subexpression}
+                new List<object>{Terminal.BinaryOperator, NonTerminal.Subexpression, NonTerminal.Subexpression }
             });
 
             Rules.Add(NonTerminal.Operand, new List<List<object>>
@@ -98,19 +98,6 @@ namespace SyntaxAnalysisLibray.Parser
             {
                 new List<object>{Terminal.Begin, NonTerminal.OperatorsList, Terminal.End}
             });
-
-            //Rules.Add(NonTerminal.Separator, new List<List<object>>
-            //{
-            //    new List<object>{Terminal.Space, NonTerminal.NullableSeparator},
-            //    new List<object>{Terminal.Tab, NonTerminal.NullableSeparator},
-            //    new List<object>{Terminal.LineBreak, NonTerminal.NullableSeparator},
-            //});
-
-            //Rules.Add(NonTerminal.NullableSeparator, new List<List<object>>
-            //{
-            //    new List<object>{NonTerminal.Separator},
-            //    new List<object>{ }
-            //});
         }
     }
 }

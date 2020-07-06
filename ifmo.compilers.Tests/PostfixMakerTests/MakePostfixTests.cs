@@ -16,7 +16,7 @@ namespace ifmo.compilers.Tests.PostfixMakerTests
         {
             var code = "(a+b)";
             var tokenizedCode = Lexer.Tokenize(code);
-            var postfixizedCode = PostfixMaker.MakePostfix(tokenizedCode);
+            var postfixizedCode = PrefixMaker.MakePostfix(tokenizedCode);
 
         }
 
@@ -27,7 +27,7 @@ namespace ifmo.compilers.Tests.PostfixMakerTests
             var code = IOManager.ReadFile(file);
             var splited = code.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
             var tokenizedCode = Lexer.Tokenize(code);
-            var postfixizedCode = PostfixMaker.MakePostfix(tokenizedCode);
+            var postfixizedCode = PrefixMaker.MakePostfix(tokenizedCode);
 
         }
     }

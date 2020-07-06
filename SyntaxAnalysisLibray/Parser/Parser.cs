@@ -50,6 +50,11 @@ namespace SyntaxAnalysisLibray.Parser
         {
             if (requestedSymbol == s_token.Type)
             {
+                if (s_token.Content == "a")
+                {
+
+                }
+                Console.WriteLine(s_token.Content);
                 return new Result(true, s_token.Content);
             }
             else
