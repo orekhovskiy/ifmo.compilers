@@ -51,7 +51,7 @@ namespace SyntaxAnalysisLibray.Lexer
         private static int CompinsateEmptyEntries(string str, string token)
         {
             var i = 0;
-            while(str[i] == ' ')
+            while(str[i] == ' ' || str[i] == '\t')
             {
                 i++;
             }

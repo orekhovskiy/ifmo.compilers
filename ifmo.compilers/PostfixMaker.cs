@@ -6,7 +6,7 @@ using CommonsLibrary.Exceptions;
 
 namespace ifmo.compilers
 {
-    static class PostfixMaker
+    public static class PostfixMaker
     {
         public static List<Token> MakePostfix(List<Token> tokens)
         {
@@ -20,12 +20,27 @@ namespace ifmo.compilers
                 } 
                 else
                 {
-                    postfixTokens.AddRange(MakePostfixExpression(expressionSubset));
-                    expressionSubset = new List<Token>();
-                    postfixTokens.Add(token);
+                    // If token is <EqualSign> postfix form doesn't required.
+                    // This separates expressions as well
+                    if (token.Type == TokenType.EqualSign && expressionSubset.Count >= 1)
+                    {
+                        var preEqualToken = expressionSubset.ElementAt(expressionSubset.Count - 1);
+                        expressionSubset.RemoveAt(expressionSubset.Count - 1);
+                        postfixTokens.AddRange(MakePostfixExpression(expressionSubset));
+                        postfixTokens.Add(preEqualToken);
+                        expressionSubset = new List<Token>();
+                        postfixTokens.Add(token);
+                    }
+                    else
+                    {
+                        postfixTokens.AddRange(MakePostfixExpression(expressionSubset));
+                        expressionSubset = new List<Token>();
+                        postfixTokens.Add(token);
+                    }
                 }
             }
-            return tokens;
+            postfixTokens.AddRange(MakePostfixExpression(expressionSubset));
+            return postfixTokens;
         }
 
         private static List<Token> MakePostfixExpression(List<Token> tokens)

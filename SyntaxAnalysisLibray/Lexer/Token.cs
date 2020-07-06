@@ -14,5 +14,9 @@ namespace SyntaxAnalysisLibray.Lexer
             Type = type;
             Content = content;
         }
+        public override string ToString()
+        {
+            return $"{Type}: {Content}";
+        }
     }
 }

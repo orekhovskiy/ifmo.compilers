@@ -12,4 +12,9 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ifmo.compilers\ifmo.compilers.csproj" />
+    <ProjectReference Include="..\SyntaxAnalysisLibray\SyntaxAnalysisLibray.csproj" />
+  </ItemGroup>
+
 </Project>
