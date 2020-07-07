@@ -8,20 +8,19 @@ namespace SyntaxAnalysisLibray
 {
     public class AbstractSyntaxTree
     {
-
-        public AbstractSyntaxTree(List<Token> elements)
-        {
-            Value = elements[0];
-            ChildNodes = elements.Skip(1).ToList();
-        }
-
-        public AbstractSyntaxTree(Token value, params Token[] childNodes)
+        public AbstractSyntaxTree(string value)
         {
             Value = value;
-            ChildNodes = childNodes.ToList();
+            ChildNodes = new List<AbstractSyntaxTree>();
         }
 
-        public Token Value { get; set; }
-        public List<Token> ChildNodes { get; set; }
+        public AbstractSyntaxTree(string value, List<AbstractSyntaxTree> childNodes)
+        {
+            Value = value;
+            ChildNodes = childNodes;
+        }
+
+        public string Value { get; set; }
+        public List<AbstractSyntaxTree> ChildNodes { get; set; }
     }
 }
